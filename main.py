@@ -13,6 +13,12 @@ from leitor import ColunaNaoEncontrada, rotular, somar_por_mes
 
 def main(pasta="."):
     try:
+        import matplotlib  # noqa: F401
+    except ImportError:
+        print("Falta a biblioteca matplotlib. Rode: pip install -r requirements.txt")
+        return 1
+
+    try:
         totais = somar_por_mes(pasta)
     except FileNotFoundError as erro:
         print(f"Erro: {erro}")

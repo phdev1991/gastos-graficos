@@ -10,7 +10,7 @@ Um mês por barra, com o total em cima. É só isso — e é suficiente para exp
 ## Como usar
 
 ```bash
-git clone https://github.com/SEU_USUARIO/gastos-graficos.git
+git clone https://github.com/phdev1991/gastos-graficos.git
 cd gastos-graficos
 pip install -r requirements.txt
 ```

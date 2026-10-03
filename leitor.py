@@ -68,13 +68,17 @@ def _parse_data(texto):
 
 
 def _parse_valor(texto):
-    """'1.234,56' -> 1234.56 ; 'R$ 1.234,56' -> 1234.56 ; '-99,90' -> -99.90"""
+    """'1.234,56' -> 1234.56 ; 'R$ 1.234,56' -> 1234.56 ; 'R$ -99,90' -> -99.90"""
     texto = texto.strip()
-    negativo = texto.startswith("-")
+    negativo = "-" in texto
     limpo = re.sub(r"[^\d,.]", "", texto)
 
     if "," in limpo:
+        # vírgula é o decimal: ponto é separador de milhar
         limpo = limpo.replace(".", "").replace(",", ".")
+    elif limpo.count(".") > 1 or re.search(r"\.\d{3}$", limpo):
+        # '1.234' ou '1.234.567': ponto é separador de milhar
+        limpo = limpo.replace(".", "")
     else:
         limpo = limpo.replace(",", ".")
 

@@ -48,6 +48,21 @@ class TestParseValor(unittest.TestCase):
     def test_negativo(self):
         self.assertEqual(_parse_valor("-99,90"), -99.90)
 
+    def test_negativo_com_simbolo(self):
+        # banco escreve o R$ antes do sinal: o estorno precisa sair negativo
+        self.assertEqual(_parse_valor("R$ -99,90"), -99.90)
+
+    def test_milhar_sem_decimal(self):
+        # '1.234' e milhar, nao 1.234 com ponto decimal
+        self.assertEqual(_parse_valor("1.234"), 1234.0)
+
+    def test_milhar_com_decimal(self):
+        self.assertEqual(_parse_valor("1.234.567,89"), 1234567.89)
+
+    def test_ponto_decimal_simples(self):
+        # ponto decimal legitimo: '0.5' continua 0.5
+        self.assertEqual(_parse_valor("0.5"), 0.5)
+
     def test_inteiro(self):
         self.assertEqual(_parse_valor("100"), 100.0)
 
